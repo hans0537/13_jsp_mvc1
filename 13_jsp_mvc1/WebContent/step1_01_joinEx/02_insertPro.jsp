@@ -63,14 +63,17 @@
 			String sql = "insert into member values(?,?,?,now())";
 			
 			// 쿼리문 완성
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, passwd);
-			pstmt.setString(3, name);
+			pstmt = conn.prepareStatement(sql);	// "insert into member values(?,?,?,now())";
+			pstmt.setString(1, id);				// "insert into member values(id,?,?,now())";
+			pstmt.setString(2, passwd);			// "insert into member values(id,passwd,?,now())";
+			pstmt.setString(3, name);			// "insert into member values(id,passwd,name,now())";
+						
 
 			// 쿼리문 실행
-			pstmt.executeUpdate();
-	%>
+			pstmt.executeUpdate();				//insert,update,delete문 실행메서드 : .executeUpdate();
+												//select문 실행메서드				: .executeQuery();
+
+	%>											
 		<script>
 		
 			alert("회원가입 되었습니다.")
