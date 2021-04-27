@@ -12,7 +12,7 @@
 		패스워드 : <input type="password" name="passwd"> <br>
 		이름 : <input type="text" name="name"> <br>
 		<input type="submit" value="회원가입">
-		<input type="reset" value="다시 입력">
+		<input type="reset" value="다시입력">
 	</form>
 	
 </body>
