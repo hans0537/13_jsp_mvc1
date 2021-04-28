@@ -11,7 +11,7 @@ public class MemberDAO {
 	// 싱글턴 패턴
 	private MemberDAO() {}
 	private static MemberDAO instance = new MemberDAO();
-	public MemberDAO getInstance() {
+	public static MemberDAO getInstance() {
 		return instance;
 	}
 	
@@ -39,5 +39,96 @@ public class MemberDAO {
 		return conn;
 	}
 
+	// Join DAO
+	public boolean insertMember(MemberDTO mdto) {
+		
+		boolean isFirstMember = false;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from member where id=?");
+			pstmt.setString(1, mdto.getId());
+			rs = pstmt.executeQuery();
+			
+			if(!rs.next()) {
+				pstmt = conn.prepareStatement("insert into member values(?,?,?,now())");
+				pstmt.setString(1,  mdto.getId());
+				pstmt.setString(2,  mdto.getPasswd());
+				pstmt.setString(3,  mdto.getName());
+				pstmt.executeUpdate();
+				isFirstMember = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+			}
+	
+		return isFirstMember;
+	}
+	
+	// Login DAO 
+	public boolean login(String id, String passwd) {
+		
+		boolean isValidMember = false;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from member where id=? and passwd=?");
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				isValidMember = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+		
+		return isValidMember; 
+	}
+	
+	// Update DAO
+	public boolean updateMember(MemberDTO mdto) {
+		
+		boolean isUpdateMember = false;
+		
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement("select * from member where id=? and passwd=?");
+			pstmt.setString(1, mdto.getId());
+			pstmt.setString(2, mdto.getPasswd());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				pstmt = conn.prepareStatement("update member set name=? where id=?");
+				pstmt.setString(1, mdto.getName());
+				pstmt.setString(2, mdto.getId());
+				pstmt.executeUpdate();
 
+				isUpdateMember = true;
+				
+				System.out.println("member테이블이 업데이트 되었습니다.");
+				System.out.println(mdto.getId() + "/" + mdto.getPasswd() + "/" + mdto.getName());
+			}
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try {rs.close();} catch (Exception e) {e.printStackTrace();}
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e) {e.printStackTrace();}
+			if(conn!=null)try {conn.close();} catch (Exception e) {e.printStackTrace();}
+		}
+
+		return isUpdateMember;
+		
+	}
 }
