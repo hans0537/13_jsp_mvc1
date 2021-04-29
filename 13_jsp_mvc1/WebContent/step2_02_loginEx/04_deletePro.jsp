@@ -7,33 +7,33 @@
 <title>04_deletePro</title>
 </head>
 <body>
-
 	<%
-	
 		request.setCharacterEncoding("utf-8");
 	
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
-	
-		boolean isLeave = MemberDAO.getInstance().leaveMember(id,pwd);
+		String id 	  = request.getParameter("id");
+		String passwd = request.getParameter("passwd");
 		
-		if(isLeave){
+		boolean isLeave = MemberDAO.getInstance().leaveMember(id,passwd);
+		
+		if (isLeave) {
+			
 			session.invalidate();
-	%>		
-			<script>
-				alert("your account has deleted successfully.");
-				location.href = "00_main.jsp";
-			</script>
-	<% 	
-		}else {
-	%>		
-			<script>
-				alert("Check your ID and Password");
-				history.go(-1);
-			</script>
-	<%	
-		}
-		
+			
 	%>
+			<script>
+				alert("Your account has been deleted successfully.");
+				location.href = "00_main.jsp";
+			</script>		
+	<% 
+		} 
+		else {
+	%>
+			<script>
+				alert("Check your ID ans Password.");
+				history.go(-1);
+			</script>		
+	<% 		  		
+		}
+	%>			
 </body>
 </html>
