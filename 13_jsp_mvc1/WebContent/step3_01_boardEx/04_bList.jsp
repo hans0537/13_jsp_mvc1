@@ -22,13 +22,14 @@
 		<%
 			ArrayList<BoardDTO> boardList = BoardDAO.getInstance().getAllBoard();
 			for (int i = 0; i < boardList.size(); i++) {
+				BoardDTO bdto = boardList.get(i);
 		%>
 		<tr> 
-			<td><%=boardList.get(i).getNum()%></td>
-			<td><%=boardList.get(i).getSubject()%></td>
-			<td><%=boardList.get(i).getWriter()%></td>
-			<td><%=boardList.get(i).getRegDate()%></td>
-			<td><%=boardList.get(i).getReadCount()%></td>
+			<td><%=bdto.getNum()%></td>
+			<td><a href="05_bInfo.jsp?num=<%=bdto.getNum()%>"> <%=bdto.getSubject()%></a></td>
+			<td><%=bdto.getWriter()%></td>
+			<td><%=bdto.getRegDate()%></td>
+			<td><%=bdto.getReadCount()%></td>
 		</tr>
 		<%
 			}
