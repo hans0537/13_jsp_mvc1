@@ -84,7 +84,7 @@ public class BoardDAO {
 				bdto.setEmail(rs.getString(3));				// bdto.setEmail(rs.getString("email"));
 				bdto.setSubject(rs.getString(4));			// bdto.setSubject(rs.getString("subject"));
 				bdto.setPassword(rs.getString(5));			// bdto.setPassword(rs.getString("password"));
-				bdto.setRegDate(sdf.format(rs.getDate(6))); // bdto.setRegDate(sdf.format(rs.getDate("reg_date"))); date형식은 문자열로 해야하기 때문에 sdf.format사용
+				bdto.setRegDate(sdf.format(rs.getDate(6))); // bdto.setRegD ate(sdf.format(rs.getDate("reg_date"))); date형식은 문자열로 해야하기 때문에 sdf.format사용
 				bdto.setReadCount(rs.getInt(7));			// bdto.setReadCount(rs.getInt("read_count"));
 				bdto.setContent(rs.getString(8));			// bdto.setContent(rs.getString("content"));
 
